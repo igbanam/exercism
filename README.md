@@ -10,8 +10,8 @@ I'll be challenging myself to gain command of 12 languages through the 12 months
 of 2023. This is very similar to my [7L7W][1] challenge. But it's been 9 years
 since that challenge, and a good time to learn again.
 
-I'll be talking about the exercises [on Twitter][1], and may be vlogging [on
-YouTube][2] as well. The goal is to sharpen the programming skills, and
+I'll be talking about the exercises [on Twitter][1]~~, and may be vlogging [on
+YouTube][2] as well~~. The goal is to sharpen the programming skills, and
 hopefully the "social sharing"™ skills.
 
 ### Languages
@@ -45,7 +45,10 @@ vim
 
 …that's about it.
 
-All coding will be done in Vim, and hopefully live-streamed on YouTube.
+All coding will be done in Vim, ~~and hopefully live-streamed on YouTube.~~
+Tried streaming and my M1 Air started overheating. Then I remembered the reason
+I chose an Air in the first place was not to do audiovisuals. You'll have to
+keep up with Twitter and GitHub.
 
 
 ## How to Contribute
@@ -53,7 +56,7 @@ All coding will be done in Vim, and hopefully live-streamed on YouTube.
 1. Chat on Twitter.
 1. Exercise together.
 1. Star this GitHub repo. It helps
-1. Follow on YouTube
+1. ~~Follow on YouTube~~
 
 
   [1]: https://twitter.com/Yaasky/status/1616224266088767488
