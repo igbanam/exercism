@@ -1,9 +1,15 @@
-"
-" This function takes a year and returns 1 if it's a leap year
-" and 0 otherwise.
-"
-function! LeapYear(year) abort
+vim9script
 
-  " your implementation goes here
+#
+# This function takes a year and returns 1 if it's a leap year
+# and 0 otherwise.
+#
+def g:LeapYear(year: number): number
 
-endfunction
+  # your implementation goes here
+
+  return 0
+
+enddef
+
+defcompile
