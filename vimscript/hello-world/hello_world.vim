@@ -1,3 +1,7 @@
-function! Hello() abort
+vim9script
+
+def g:Hello(): string
   return "Hello, World!"
-endfunction
+enddef
+
+defcompile
