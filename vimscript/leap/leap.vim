@@ -8,7 +8,18 @@ def g:LeapYear(year: number): number
 
   # your implementation goes here
 
-  return 0
+  if year % 4 == 0
+    if year % 100 == 0
+      if year % 400 == 0
+        return 1
+      else
+        return 0
+      endif
+    endif
+    return 1
+  else
+    return 0
+  endif
 
 enddef
 
