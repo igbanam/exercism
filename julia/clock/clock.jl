@@ -5,15 +5,12 @@ struct Clock
     minute::Int8
 
     function Clock(hour::Int, minute::Int)
-        # TODO: Refactor this block
         if minute < 0
-            if minute > -60
-                hour = hour - 1
-                minute = 60 + (minute % 60)
-            else
-                hour = hour - 1 + (minute ÷ 60)
-                minute = 60 + (minute % 60)
+            hour = hour - 1
+            if minute <= -60
+                hour += minute ÷ 60
             end
+            minute = 60 + (minute % 60)
         end
 
         effective_hour = (hour + (minute ÷ 60)) % 24
