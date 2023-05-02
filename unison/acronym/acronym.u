@@ -1,0 +1,10 @@
+acronym.wordBoundary : Char -> Boolean
+acronym.wordBoundary c = Char.isWhitespace c || (c == ?-)
+acronym.abbreviate : Text -> Text
+acronym.abbreviate test =
+  test
+    |> toUppercase
+    |> segmentBy (Boolean.not << acronym.wordBoundary)
+    |> map (dropWhile (not << Char.ascii.isLetter))
+    |> map (Text.take 1)
+    |> join ""
