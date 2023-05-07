@@ -1,0 +1,36 @@
+spaceAge.onMercury : Nat -> Float
+spaceAge.onMercury s =
+  (s |> onEarth) / 0.2408467
+spaceAge.onVenus : Nat -> Float
+spaceAge.onVenus s =
+  (s |> onEarth) / 0.61519726
+spaceAge.onEarth : Nat -> Float
+spaceAge.onEarth s =
+  (Nat.toFloat s) / (Nat.toFloat 31557600)
+spaceAge.onMars : Nat -> Float
+spaceAge.onMars s =
+  (s |> onEarth) / 1.8808158
+spaceAge.onJupiter : Nat -> Float
+spaceAge.onJupiter s =
+  (s |> onEarth) / 11.862615
+spaceAge.onSaturn : Nat -> Float
+spaceAge.onSaturn s =
+  (s |> onEarth) / 29.447498
+spaceAge.onUranus : Nat -> Float
+spaceAge.onUranus s =
+  (s |> onEarth) / 84.016846
+spaceAge.onNeptune : Nat -> Float
+spaceAge.onNeptune s =
+  (s |> onEarth) / 164.79132
+spaceAge.age : Text -> Nat -> Optional Float
+spaceAge.age planet earthAgeSeconds =
+  match (Text.toLowercase planet) with
+    "mercury" -> Some(earthAgeSeconds |> onMercury)
+    "venus"   -> Some(earthAgeSeconds |> onVenus)
+    "earth"   -> Some(earthAgeSeconds |> onEarth)
+    "mars"    -> Some(earthAgeSeconds |> onMars)
+    "jupiter" -> Some(earthAgeSeconds |> onJupiter)
+    "saturn"  -> Some(earthAgeSeconds |> onSaturn)
+    "uranus"  -> Some(earthAgeSeconds |> onUranus)
+    "neptune" -> Some(earthAgeSeconds |> onNeptune)
+    _         -> None
