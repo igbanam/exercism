@@ -1,0 +1,15 @@
+etl.sureValue : Nat -> Map Nat [v] -> [v]
+etl.sureValue k m = Optional.getOrElse [] (Map.get k m)
+
+etl.transform : Map Nat [Char] -> Map Char Nat
+etl.transform lettersByScore =
+  lettersByScore
+    |> Map.keys
+    |> List.flatMap
+        (x ->
+          sureValue x lettersByScore
+          |> List.map (j -> toLower j)
+          |> List.zip (List.fill (List.size (sureValue x lettersByScore)) x)
+          |> List.map (t -> Tuple.swap t)
+        )
+    |> Map.fromList
