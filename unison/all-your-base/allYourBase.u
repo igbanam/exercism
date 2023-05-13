@@ -1,0 +1,62 @@
+-- at this point, I realized that the best solution to a problem is in some doc
+-- somewhere. I wrote all this code trying to figure out how to convert from one
+-- base to another, then I see that the whole thing is already implemented in the
+-- base.math.Natural class. Bruh! Couldn't help but feel sad bruh. Had to commit
+-- this in as baseline so future minds know what wasted efforts look like. RTFM!!
+
+allYourBase.toTen : Int -> [Int] -> Text
+allYourBase.toTen inputBase inputDigits =
+  inputDigits
+    |> map (x -> Int.toText x)
+    |> join ""
+    |> Natural.parse (inputBase |> toRepresentation)
+    |> Optional.map Natural.toDecimalText
+    |> Optional.getOrBug "Works"
+
+allYourBase.toBase : Int -> Int -> [Int]
+allYourBase.toBase requiredBase numberToConvert =
+  inloop : Int -> Int -> [Int] -> [Int]
+  inloop base num accumulator =
+    match num with
+      n
+        | n Int./ base Int.== +0 -> List.insert 0 (Int.mod n base) accumulator
+        | otherwise -> inloop base (n Int./ base) (List.insert 0 (Int.mod n base) accumulator)
+  inloop requiredBase numberToConvert []
+
+allYourBase.rebase : Int -> [Int] -> Int -> Optional [Int]
+allYourBase.rebase inputBase inputDigits outputBase =
+  inputDigits
+    |> map (x -> Int.toText x)
+    |> join ""
+    |> Natural.parse (inputBase |> toRepresentation)
+    |> Optional.map Natural.toDecimalText
+    |> Optional.map Text.toCharList
+    |> Optional.map (map (x -> Char.ascii.toBase36Digit x))
+    |> Optional.map (map (x -> x |> Optional.getOrBug "Should"))
+    |> Optional.map (map (x -> x |> Nat.toInt))
+
+> rebase +2 [+1, +0, +1, +0, +1, +0, +1, +1, +1, +0, +1] +10
+
+> [+1, +0, +1, +0, +1, +0, +1, +1, +1, +0, +1]
+  |> toTen +2
+
+> [+1, +0, +1, +0, +1, +0, +1, +1, +1, +0, +1]
+  |> toTen +2
+  |> parse 10
+  |> Optional.getOrBug "Must"
+  -- |> Nat.toInt
+  -- |> toBase +8
+
+> [+1, +0, +1, +0, +1, +0, +1, +1, +1, +0, +1]
+  |> map (x -> Int.toText x)
+  |> join ""
+  |> Natural.parse 2
+  |> Optional.map Natural.toDecimalText
+  |> Optional.map Text.toCharList
+  |> Optional.map (map (x -> Char.ascii.toBase36Digit x))
+  |> Optional.map (map (x -> x |> Optional.getOrBug "Should"))
+  |> Optional.map (map (x -> x |> Nat.toInt))
+
+> List.insert 0 "c" ["a", "b", "d"]
+
+> allYourBase.toBase +8 +17
