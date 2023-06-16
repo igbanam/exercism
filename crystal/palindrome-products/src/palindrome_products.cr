@@ -1,44 +1,50 @@
 class PalindromeProducts
-  property left : Int32
-  property right : Int32
-  property products
-
-  # Write your code for the 'Palindrome Products' exercise in this file.
-  def initialize(@left, @right)
-    @products = Hash(Int32, Array(Array(Int32))).new
-    o = (left..right).to_a
-    o
-      .cartesian_product(o)
-      .select { |f| is_palindrome?(f[0] * f[1]) }
-      .each do |f|
-      k = f[0] * f[1]
-      factors = f.to_a.sort
-      if products.has_key? k
-        products[k] << factors
-        products[k].uniq!
-      else
-        products[k] = [factors]
-      end
-    end
+  def initialize(@left : Int32, @right : Int32)
   end
 
   def smallest
-    raise ArgumentError.new if left > right
+    raise ArgumentError.new if @left > @right
 
-    return {nil, [] of Int32} if products.empty?
+    the_smallest = Int32::MAX
+    factors = [] of Array(Int32)
 
-    products
-      .min_by { |k, _| k }
+    (@left..@right).each do |i|
+      (i..@right).each do |j|
+        k = i * j
+        if k == the_smallest
+          factors << [i, j]
+        elsif k < the_smallest && is_palindrome?(k)
+          the_smallest = k
+          factors = [[i, j]]
+        end
+      end
+    end
+
+    the_smallest = nil if factors.empty?
+    return { the_smallest, factors }
+    nil
   end
 
   def largest
-    raise ArgumentError.new if left > right
+    raise ArgumentError.new if @left > @right
 
-    return {nil, [] of Int32} if products.empty?
+    the_largest = 0
+    factors = [] of Array(Int32)
 
-    products
-      .max_by? { |k, _| k }
-      .not_nil!
+    (@left..@right).reverse_each do |i|
+      (i..@right).reverse_each do |j|
+        k = i * j
+        if k == the_largest
+          factors << [i, j]
+        elsif k > the_largest && is_palindrome?(k)
+          the_largest = k
+          factors = [[i, j]]
+        end
+      end
+    end
+
+    the_largest = nil if factors.empty?
+    return { the_largest, factors }
   end
 
   def is_palindrome?(k)
